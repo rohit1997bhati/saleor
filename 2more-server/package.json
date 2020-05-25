@@ -1,0 +1,109 @@
+{
+  "name": "saleor",
+  "version": "0.0.0",
+  "main": "Gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mirumee/saleor.git"
+  },
+  "author": "Mirumee Software",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/mirumee/saleor/issues"
+  },
+  "homepage": "http://getsaleor.com/",
+  "engines": {
+    "node": ">=10.6.0",
+    "npm": ">=6.1.0"
+  },
+  "dependencies": {
+    "bootstrap": "4.3.1",
+    "classnames": "^2.2.6",
+    "detect-passive-events": "^1.0.4",
+    "draftjs-to-html": "^0.8.4",
+    "dropzone": "^5.7.0",
+    "jquery": "^3.4.1",
+    "jquery.cookie": "^1.4.1",
+    "lazysizes": "^4.1.8",
+    "lodash": "^4.17.15",
+    "materialize-css": "^0.100.2",
+    "medium-editor": "^5.23.3",
+    "mobx": "^3.6.2",
+    "mobx-react": "^4.4.3",
+    "popper.js": "^1.16.1",
+    "prop-types": "^15.7.2",
+    "qs": "^6.9.3",
+    "query-string": "^5.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "select2": "^4.0.13",
+    "sortablejs": "^1.10.2",
+    "svg-injector-2": "^2.0.35"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/runtime": "^7.9.2",
+    "autoprefixer": "^8.6.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "file-loader": "^1.1.11",
+    "mini-css-extract-plugin": "^0.4.5",
+    "mjml": "^4.6.2",
+    "node-sass": "^4.13.1",
+    "postcss": "^6.0.23",
+    "postcss-loader": "^2.1.6",
+    "prettier": "^1.19.1",
+    "regenerator-runtime": "^0.11.1",
+    "sass-loader": "^7.3.1",
+    "webpack": "^4.42.1",
+    "webpack-bundle-tracker": "^0.3.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "decoratorsBeforeExport": true
+        }
+      ],
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  },
+  "metadata": {
+    "graphql": {
+      "schema": "./saleor/static/schema.json"
+    }
+  },
+  "scripts": {
+    "build-assets": "webpack -p",
+    "build-schema": "python manage.py get_graphql_schema > saleor/graphql/schema.graphql",
+    "heroku-postbuild": "npm run build-assets && npm run build-emails",
+    "start": "webpack -d --watch",
+    "build-emails": "mjml --config.beautify false -l skip \"templates/templated_email/source/*.mjml\" -o templates/templated_email/compiled",
+    "prettier": "prettier --write \"saleor/static/**/*.js\""
+  }
+}
